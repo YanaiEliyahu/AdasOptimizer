@@ -1,7 +1,7 @@
 # AdasOptimizer
 Adas is short for Adaptive Step Size, it's an optimizer that unlike other optimizers that just normalize the derivatives, it fine-tunes the step size, truly making step size scheduling obsolete.
 
-= Training Performance =
+## Training Performance
 
 ![ADAS vs ADAM](/adas_vs_adam.png)
 
@@ -12,7 +12,7 @@ To see how ADAM was tested run the python script adam.py, it uses tensorflow.
 ADAS was compared against other optimizers (AdaGrad, AdaDelta, RMSprop, Adamax, Nadam) in tensorflow, and none of them showed better results than ADAM, so their performance was left out of this graph.
 Increasing ADAM's step size improved the performance in the short-term, but made it worse in the long-term, and vice versa for decreasing it's step size.
 
-= Theory =
+## Theory
 
 This section explains how ADAS optimizes step size.
 
@@ -25,7 +25,7 @@ You may notice that there's a critical problem in computing the above formula, i
 To overcome the above problem, compute a running average of `x`'s derivative in SGD-context, this represents the `f'(x)` in the formula, and for each SGD update to `x`,
 its derivative will represent the `f'(x + f'(x) * step_size(n))`, and then update the `step-size` according to the formula.
 
-= How It works =
+## How It works
 
 For each layer in the network:
 1. step size per input neuron (called input step sizes), default is 0.1 / input-nodes-count
@@ -51,7 +51,7 @@ Backpropagation:
 8. Optimize SSSS taking the following as the gradient: the sum of theinput step sizes' running average of updates multiplied by their current derivative.
 9. Update the running averages of input step sizes update.
 
-= Build & Run =
+## Build & Run
 
 Run `DEBUG=0 OPT=1 make run`, this implementation requires GCC 7 or higher. (configure/export `CC` if your default GCC is lower than 7)
 Note that it's highly unoptimized (in contrast to highly optimized like tensorflow), profiling shows that the difference between ADAM and ADAS takes less than 20% of the total compute.
