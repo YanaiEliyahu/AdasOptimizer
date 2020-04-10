@@ -28,13 +28,13 @@ its derivative will represent the `f'(x + f'(x) * step_size(n))`, and then updat
 ## How It works
 
 For each layer in the network:
-1. step size per input neuron (called input step sizes), default is 0.1 / input-nodes-count
-2. running averages (default decay value is .99999) of weights updates (of the layer)
-3. input offsets (default decay value is .99999), is a running averages of the input
-4. running averages (default decay value is .9999) of input step sizes updates
+1. step size per input neuron (called input step sizes), default is `0.1 / input-nodes-count`.
+2. running averages (default decay value is `.99999`) of weights updates (of the layer).
+3. input offsets (default decay value is `.99999`), is a running averages of the input.
+4. running averages (default decay value is `.9999`) of input step sizes updates.
 5. step size that is used for updating the input step sizes, default is 0.005. (called step size step size, or in short SSSS, it's a step size that is updated too during training like input step sizes)
 
-Layer's weights, input step sizes and SSSS are all updated, each taking the next item in the list as their step size, where SSSS's step size is a constant, default is 0.0005.
+Layer's weights, input step sizes and SSSS are all updated, each taking the next item in the list as their step size, where SSSS's step size is a constant, default is `0.0005`.
 For each update done, the derivatives are normalized like in ADAM's algorithm, just without the momentum part.
 For each update to a step size weights is done by `x(n+1) = x(n) + x(n) * u * step-size`, where `x` is the step size itself, `u` is the update done to the step size, `step-size` is the step size's step size.
 
