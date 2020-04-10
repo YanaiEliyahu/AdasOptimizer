@@ -8,7 +8,7 @@ Adas is short for Adaptive Step Size, it's an optimizer that unlike other optimi
 This is a graph of ADAS (blue) and ADAM (orange)'s inaccuracy percentages in log scale (y-axis) over epochs (x-axis) on MNIST's training dataset using shallow network of 64 hidden nodes.
 It can be seen that in the start ADAS is ~2x faster than ADAM, and while ADAM slows down, ADAS converages to 0% inaccuracy, in 24 iterations exactly, and since then never diverging.
 
-To see how ADAM was tested run the python script adam.py, it uses tensorflow.
+To see how ADAM was tested see/run the python script `./adam.py`, it uses tensorflow.
 ADAS was compared against other optimizers (AdaGrad, AdaDelta, RMSprop, Adamax, Nadam) in tensorflow, and none of them showed better results than ADAM, so their performance was left out of this graph.
 Increasing ADAM's step size improved the performance in the short-term, but made it worse in the long-term, and vice versa for decreasing it's step size.
 
