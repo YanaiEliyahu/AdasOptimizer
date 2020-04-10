@@ -23,7 +23,7 @@ The final formula makes sense, because whenever `x` is updated in the same direc
 
 You may notice that there's a critical problem in computing the above formula, it requires evaluation of the gradient on the entire dataset twice for each update of step-size, which is quite expensive.
 To overcome the above problem, compute a running average of `x`'s derivative in SGD-context, this represents the `f'(x)` in the formula, and for each SGD update to `x`,
-its derivative will represent the `f'(x + f'(x) * step_size(n))`, and then update the `step-size` according to the formula.
+its derivative represents the `f'(x + f'(x) * step_size(n))`, and then update the `step-size` according to the formula.
 
 ## How It works
 
