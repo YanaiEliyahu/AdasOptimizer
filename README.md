@@ -5,7 +5,7 @@ Adas is short for Adaptive Step Size, it's an optimizer that unlike other optimi
 
 ![ADAS vs ADAM](/adas_vs_adam.png)
 
-This is a graph of ADAS (blue) and ADAM (orange)'s inaccuracy percentages in log scale over epochs on MNIST's training dataset using shallow network of 64 hidden nodes.
+This is a graph of ADAS (blue) and ADAM (orange)'s inaccuracy percentages in log scale (y-axis) over epochs (x-axis) on MNIST's training dataset using shallow network of 64 hidden nodes.
 It can be seen that in the start ADAS is ~2x faster than ADAM, and while ADAM slows down, ADAS converages to 0% inaccuracy, in 24 iterations exactly, and since then never diverging.
 
 To see how ADAM was tested run the python script adam.py, it uses tensorflow.
