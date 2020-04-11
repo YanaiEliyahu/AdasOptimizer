@@ -51,7 +51,7 @@ Backpropagation:
 8. Optimize SSSS by taking the following as the gradient: the sum of theinput step sizes' running average of updates multiplied by their current derivative. (Like the formula in the theory section)
 9. Update the running averages of input step sizes update.
 
-If you are having hard time understand with the above words, then try reading `main.cpp`.
+If you are having hard time understanding with the above words, then try reading `main.cpp`.
 
 ## Build & Run
 
