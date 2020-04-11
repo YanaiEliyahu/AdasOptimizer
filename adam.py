@@ -18,5 +18,4 @@ model.compile(optimizer='adam',
     loss=loss_fn,
     metrics=['accuracy'])
 
-model.fit(x_train, y_train, epochs=10000)
-model.evaluate(x_test,  y_test, verbose=2)
+model.fit(x_train, y_train, epochs=100)
