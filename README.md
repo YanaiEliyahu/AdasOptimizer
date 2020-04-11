@@ -25,7 +25,7 @@ You may notice that there's a critical problem in computing the above formula, i
 To overcome the above problem, compute a running average of `x`'s derivative in SGD-context, this represents the `f'(x)` in the formula, and for each SGD update to `x`,
 its derivative represents the `f'(x + f'(x) * step_size(n))`, and then update the `step-size` according to the formula.
 
-## How It works
+## How ADAS works
 
 For each layer in the network:
 1. step size per input neuron (called input step sizes), default is `0.1 / input-nodes-count`.
