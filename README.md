@@ -38,7 +38,7 @@ Layer's weights, input step sizes and SSSS are all updated, each taking the next
 For each update done, the derivatives are normalized like in ADAM's algorithm, just without the momentum part.
 For each update to a step size weight is done by `x(n+1) = x(n) + x(n) * u * step-size`, where `x` is the step size itself, `u` is the update done to the step size, `step-size` is the step size's step size.
 
-Forward propagation is left intact.
+
 
 Backpropagation:
 1. Update input offsets. (from `3.`)
