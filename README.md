@@ -17,7 +17,7 @@ Increasing ADAM's step size improved the performance in the short-term, but made
 This section explains how ADAS optimizes step size.
 
 The problem of finding the optimal step size formulates itself into optimizing `f(x + f'(x) * step-size)` by `step-size`.
-Which is translated into this formula that updates the step-size on the fly: `step-size(n+1) = step-size(n) + f'(x) * f'(x + f'(x) * step_size(n))`.
+Which is translated into this formula that updates the `step-size` on the fly: `step-size(n+1) = step-size(n) + f'(x) * f'(x + f'(x) * step_size(n))`.
 In english it means optimize step size so the loss decreases the most with each weights update.
 The final formula makes sense, because whenever `x` is updated in the same direction, the `step-size` should increase because we didn't make a large enough step, and vice versa for opposite.
 
