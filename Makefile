@@ -1,4 +1,3 @@
-CC ?= $(shell which g++)
 PROJECT_NAME = $(shell basename $(dir $(MAKEFILE_PATH)))
 SRCDIR = .
 BASEDIR ?= /tmp/$(PROJECT_NAME)
@@ -66,7 +65,7 @@ else
 endif
 ifeq ($(BASE_WAE),1)
 	WARNINGS_AS_ERRORS = -Werror=all -Werror=extra -Werror=attributes \
-						 $(shell $(CC) -Q --help=warning | grep enabled | sed -e 's/^\s*\(\-\S*\)\s*\[\w*\]/\1 /gp;d' | sed -e "s/-W/-Werror=/g" | grep "Werror") \
+						 $(shell $(CXX) -Q --help=warning | grep enabled | sed -e 's/^\s*\(\-\S*\)\s*\[\w*\]/\1 /gp;d' | sed -e "s/-W/-Werror=/g" | grep "Werror") \
 						 -Wno-format-security -Wno-format-zero-length \
 						 -Wno-long-long -Wno-pointer-arith -Wno-error=unused-function -Wno-error=vla \
 						 -Wno-switch -Wno-dangling-else -Wno-empty-body -Wno-reorder
@@ -113,13 +112,13 @@ $(PARAMS_HASH_TARGET) $(FILES_LINK_HASH_TARGET): $(MAKEFILE_PATH)
 	$(MKDIR_P) $(dir $@)
 	touch $@
 
-$(PCHS): $(GLOBAL_DEPS) $(@:$(PCHDIR)/%.gch=$(SRCDIR)/%) $(CC)
+$(PCHS): $(GLOBAL_DEPS) $(@:$(PCHDIR)/%.gch=$(SRCDIR)/%)
 	@echo PCH $(@:$(PCHDIR)/%.gch=%)
 	$(MKDIR_P) $(dir $@)
 	$(MKDIR_P) $(dir $(@:$(PCHDIR)/%.gch=$(OBJDIR)/%.d))
-	$(CC) $(CFLAGS) -x c++-header $(realpath $(@:$(PCHDIR)/%.gch=$(SRCDIR)/%)) -MMD -MT "$(@:$(PCHDIR)/%.gch=$(OBJDIR)/%.d) $@" -MF $(@:$(PCHDIR)/%.gch=$(OBJDIR)/%.d) -o $@
+	$(CXX) $(CFLAGS) -x c++-header $(realpath $(@:$(PCHDIR)/%.gch=$(SRCDIR)/%)) -MMD -MT "$(@:$(PCHDIR)/%.gch=$(OBJDIR)/%.d) $@" -MF $(@:$(PCHDIR)/%.gch=$(OBJDIR)/%.d) -o $@
 
-$(OBJECTS): $(PCHS) $(GLOBAL_DEPS) $(@:$(OBJDIR)/%.o=$(SRCDIR)/%) $(CC)
+$(OBJECTS): $(PCHS) $(GLOBAL_DEPS) $(@:$(OBJDIR)/%.o=$(SRCDIR)/%)
 	@echo CXX $(@:$(OBJDIR)/%.o=%)
 	$(MKDIR_P) $(dir $@)
 	@HEADER_IMPORT='';\
@@ -128,18 +127,18 @@ $(OBJECTS): $(PCHS) $(GLOBAL_DEPS) $(@:$(OBJDIR)/%.o=$(SRCDIR)/%) $(CC)
 	else\
 		HEADER_IMPORT='';\
 	fi;\
-	echo $(CC) -I$(PCHDIR) $(CFLAGS) -include $(PCH_PATH) $$HEADER_IMPORT $(realpath $(@:$(OBJDIR)/%.o=$(SRCDIR)/%)) -MMD -MT "$(@:$(OBJDIR)/%.o=$(OBJDIR)/%.d) $@" -MF $(@:$(OBJDIR)/%.o=$(OBJDIR)/%.d) -o $@;\
-	$(CC) -I$(PCHDIR) $(CFLAGS) -include $(PCH_PATH) $$HEADER_IMPORT $(realpath $(@:$(OBJDIR)/%.o=$(SRCDIR)/%)) -MMD -MT "$(@:$(OBJDIR)/%.o=$(OBJDIR)/%.d) $@" -MF $(@:$(OBJDIR)/%.o=$(OBJDIR)/%.d) -o $@;\
+	echo $(CXX) -I$(PCHDIR) $(CFLAGS) -include $(PCH_PATH) $$HEADER_IMPORT $(realpath $(@:$(OBJDIR)/%.o=$(SRCDIR)/%)) -MMD -MT "$(@:$(OBJDIR)/%.o=$(OBJDIR)/%.d) $@" -MF $(@:$(OBJDIR)/%.o=$(OBJDIR)/%.d) -o $@;\
+	$(CXX) -I$(PCHDIR) $(CFLAGS) -include $(PCH_PATH) $$HEADER_IMPORT $(realpath $(@:$(OBJDIR)/%.o=$(SRCDIR)/%)) -MMD -MT "$(@:$(OBJDIR)/%.o=$(OBJDIR)/%.d) $@" -MF $(@:$(OBJDIR)/%.o=$(OBJDIR)/%.d) -o $@;\
 
 $(DSTENVDIR)%: $(GLOBAL_DEPS) $(SRCENVDIR)%
 	@echo ENV $(@:$(DSTENVDIR)/%=env/%)
 	$(MKDIR_P) $(dir $@)
 	cp -r $(@:$(DSTENVDIR)/%=$(SRCENVDIR)/%) $@
 
-$(EXECUTABLE): $(GLOBAL_DEPS) $(FILES_LINK_HASH_TARGET) $(OBJECTS) $(CC)
+$(EXECUTABLE): $(GLOBAL_DEPS) $(FILES_LINK_HASH_TARGET) $(OBJECTS)
 	@echo LINK $@
 	$(MKDIR_P) $(dir $@)
-	$(CC) $(OBJECTS) $(LDFLAGS) -o $@.2
+	$(CXX) $(OBJECTS) $(LDFLAGS) -o $@.2
 	mv $@.2 $@
 
 .PHONY: run
