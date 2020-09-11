@@ -87,7 +87,7 @@ PCH_PATH = $(shell realpath $(PCHDIR)/utility.hpp)
 SRCENVS = $(shell find $(SRCENVDIR) -type f 2> /dev/null)
 DSTENVS = $(SRCENVS:$(SRCENVDIR)%=$(DSTENVDIR)%)
 
-LIBRARYS = -static-libasan -lpthread -llapacke -lgsl
+LIBRARYS = -static-libasan -lpthread
 EXECUTABLE = $(BUILDDIR)/$(PROJECT_NAME)
 INCLUDE_DIRS = -I$(SRCDIR)
 BASE_FLAGS = $(ARCH) $(OPTIMIZATION) $(DEBUG_SYMBOLS) $(EXFLAGS) -ftemplate-backtrace-limit=0 -pipe -Winvalid-pch -mbmi2 -msse -msse2 -msse3 -msse4.1 -fconcepts -mavx -mavx2 -ftree-vectorize -funroll-loops
