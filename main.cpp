@@ -116,7 +116,7 @@ int Main(const v<string>&) {
 
   size_t
     input_size = 28 * 28,
-    hidden_size = 64,
+    hidden_size = 256,
     output_size = 10
   ;
 
