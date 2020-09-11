@@ -48,7 +48,7 @@ Backpropagation:
 5. Calculate the input step sizes' derivative by multiplying the running averages of weights update by the batch's derivative.
 6. Update the running averages of weights update.
 7. Update each input step size (with the derivative calculated at `5.`).
-8. Optimize SSSS by taking the following as the gradient: the sum of theinput step sizes' running average of updates multiplied by their current derivative. (Like the formula in the theory section)
+8. Optimize SSSS by taking the following as the gradient: the sum of the input step sizes' running average of updates multiplied by their current derivative. (Like the formula in the theory section)
 9. Update the running averages of input step sizes update.
 
 If you are having hard time understanding with the above words, then try reading `main.cpp`.
