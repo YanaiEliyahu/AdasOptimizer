@@ -3,7 +3,7 @@ ADAS is short for Adaptive Step Size, it's an optimizer that unlike other optimi
 
 ## How to use
 
-```
+```shell
 git clone https://github.com/YanaiEliyahu/AdasOptimizer.git && cd AdasOptimizer
 ```
 
