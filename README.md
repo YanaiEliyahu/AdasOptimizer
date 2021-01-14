@@ -1,7 +1,7 @@
 # AdasOptimizer
 ADAS is short for Adaptive Step Size, it's an optimizer that unlike other optimizers that just normalize the derivatives, it fine-tunes the step size, truly making step size scheduling obsolete.
 
-## Tensorflow (compatible with both v1.x and v2.x)
+## Tensorflow (compatible with both 1.x and 2.x)
 
 See [adasopt.py](adasopt.py).
 
