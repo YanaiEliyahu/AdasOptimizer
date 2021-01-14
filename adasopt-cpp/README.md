@@ -1,5 +1,3 @@
-# AdasOpt-cpp
-
 ## Build & Run
 
 Run `DEBUG=0 OPT=1 make run`, this implementation requires GCC 7 or higher. (configure/export `CXX` if your default GCC is lower than 7)
