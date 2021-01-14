@@ -1,9 +1,18 @@
 # AdasOptimizer
 ADAS is short for Adaptive Step Size, it's an optimizer that unlike other optimizers that just normalize the derivatives, it fine-tunes the step size, truly making step size scheduling obsolete.
 
-## Tensorflow (compatible with both 1.x and 2.x)
+## How to use
 
-See [adasopt.py](adasopt.py).
+```
+git clone https://github.com/YanaiEliyahu/AdasOptimizer.git
+cd AdasOptimizer
+```
+
+Tensorflow 1.x and 2.x:
+1. For standalone optimizer file see [adasopt.py](adasopt.py).
+2. For quick benchmark run [adas.py](adas.py) or [adam.py](adam.py).
+
+There is also a C++ version of Adas in [adasopt-cpp](adasopt-cpp).
 
 ## Training Performance
 
@@ -55,9 +64,4 @@ Backpropagation:
 8. Optimize SSSS by taking the following as the gradient: the sum of the input step sizes' running average of updates multiplied by their current derivative. (Like the formula in the theory section)
 9. Update the running averages of input step sizes update.
 
-If you are having hard time understanding with the above words, then try reading `main.cpp`.
-
-## Run
-
-1. For tensorflow 1.x or 2.x run`./adam.py` or `./adas.py`.
-2. There is also a C++ version of Adas in `./adasopt-cpp/`.
+If you are having hard time understanding with the above words, then try reading [adasopt.py](adasopt.py).
