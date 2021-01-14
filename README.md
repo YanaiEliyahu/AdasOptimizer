@@ -4,8 +4,7 @@ ADAS is short for Adaptive Step Size, it's an optimizer that unlike other optimi
 ## How to use
 
 ```
-git clone https://github.com/YanaiEliyahu/AdasOptimizer.git
-cd AdasOptimizer
+git clone https://github.com/YanaiEliyahu/AdasOptimizer.git && cd AdasOptimizer
 ```
 
 Tensorflow 1.x and 2.x:
