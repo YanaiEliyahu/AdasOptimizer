@@ -136,8 +136,7 @@ class AdasOptimizer(Optimizer):
         return self._get_updates_universal_impl(grad if grad is not None else K.constant(0,shape=param.shape,dtype=K.dtype(param)),param)
 
     def get_updates(self, loss, params):
-        grads = [a for a in self.get_gradients(loss, params)]
-        return sum([self._get_updates_universal_impl(grad,var) for (grad,var) in zip(grads,params)],[])
+        return sum([self._get_updates_universal_impl(grad,var) for (grad,var) in zip(self.get_gradients(loss, params),params)],[])
 
     def _create_slots(self, var_list):
         for var in var_list:
