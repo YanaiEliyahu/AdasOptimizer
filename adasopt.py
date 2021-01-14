@@ -21,13 +21,23 @@
 # SOFTWARE.
 
 """Implementation of Adas."""
+
 from tensorflow.keras.optimizers import Optimizer
 from tensorflow.keras import backend as K
 from tensorflow.python.ops import math_ops
 
 class AdasOptimizer(Optimizer):
-    def __init__(self, lr=0.001,lr2=.005,lr3=.0002, beta_1=0.999, beta_2=0.9999, beta_3 = 0.99999,
-                 epsilon=None, **kwargs):
+    """Adas optimizer.
+    # Arguments
+        lr: float > 0. Initial weights learning rate per feature/input (e.g. dense layer with N inputs and M outputs, will have N learning rates, 1 per input).
+        lr2: float >= 0.  lr's Initial learning rate. (just ~1-2 per layer)
+        lr3: float >= 0. lr2's fixed learning rate. (global)
+        beta_1: 0 < float < 1. Preferably close to 1. Second moments decay factor to update lr and lr2 weights.
+        beta_2: 0 < float < 1. Preferably close to 1. 1/(1 - beta_2) steps back in time that `lr`s will be optimized for.
+        beta_3: 0 < float < 1. Preferably close to 1. Same as beta_2, but for `lr2`s.
+        epsilon: float >= 0. Fuzz factor. If `None`, defaults to `K.epsilon()`.
+    """
+    def __init__(self, lr=0.001,lr2=.005,lr3=.0002, beta_1=0.999, beta_2=0.9999, beta_3 = 0.99999, epsilon=None, **kwargs):
         super(AdasOptimizer, self).__init__('Adas',**kwargs)
         self._iterations = K.variable(0, dtype='int64', name='iterations')
         self._lr = lr
@@ -40,45 +50,42 @@ class AdasOptimizer(Optimizer):
             epsilon = K.epsilon()
         self._epsilon = epsilon
 
-    def _derivatives_normalizer(self,updates,derivatives,beta_1,beta_2):
+    def _derivatives_normalizer(self,derivatives,beta):
         t = K.cast(self._iterations, K.floatx()) + 1
-        lr_t = K.sqrt(1. - K.pow(beta_2, t))
+        lr_t = K.sqrt(1. - K.pow(self._beta_1, t))
         ms = [K.zeros(K.int_shape(p), dtype=K.dtype(p)) for p in derivatives]
         new_derivatives = [K.zeros(K.int_shape(p), dtype=K.dtype(p)) for p in derivatives]
         new_derivatives2 = []
         old_moments = [K.zeros(K.int_shape(p), dtype=K.dtype(p)) for p in derivatives]
         new_moments = []
         for p, p_t, m, om in zip(derivatives, new_derivatives, ms, old_moments):
-            v_t = (beta_2 * m) + (1. - beta_2) * K.square(p)
-            updates.append(K.update(m, v_t))
+            v_t = (self._beta_1 * m) + (1. - self._beta_1) * K.square(p)
+            self._updates.append(K.update(m, v_t))
             np_t = p * lr_t / (K.sqrt(v_t) + self._epsilon)
-            m_t = (beta_1 * om) + (1. - beta_1) * np_t
-            updates.append(K.update(om, m_t))
+            m_t = (beta * om) + (1. - beta) * np_t
+            self._updates.append(K.update(om, m_t))
             new_moments.append(m_t)
             new_derivatives2.append(np_t)
-            updates.append(K.update(p_t,np_t))
+            self._updates.append(K.update(p_t,np_t))
         return (old_moments,new_derivatives2)
-
-    def _meta_optimize(self,updates,derivatives_,beta_1,beta_2,params,default_lr,default_lr2,default_lr3):
-        lrs = [K.variable(K.constant(default_lr,shape=K.int_shape(p)[:-1], dtype=K.dtype(p))) for p in params]
-        moments, derivs = self._derivatives_normalizer(updates,derivatives_,beta_1,beta_2)
-        for lr,deriv,moment,param,deriv2 in zip(lrs,derivs,moments,params,derivatives_):
-            param_t = param - K.expand_dims(lr,len(K.int_shape(param)) - 1) * deriv
-            self._updates.append(K.update(param, param_t))
-            lr_deriv = math_ops.reduce_sum(moment * deriv2,len(K.int_shape(param)) - 1)
-            master_lr = K.variable(default_lr2)
-            m2,d2 = self._derivatives_normalizer(updates,[lr_deriv],self._beta_2,self._beta_1)
-            lr_t = lr + master_lr * lr * d2[0]
-            self._updates.append(K.update(lr, lr_t))
-            master_lr_deriv2 = math_ops.reduce_sum(m2[0] * lr_deriv)
-            m3,d3 = self._derivatives_normalizer(updates,[master_lr_deriv2],self._beta_2,self._beta_1)
-            master_lr_t = master_lr + default_lr3 * master_lr * d3[0]
-            self._updates.append(K.update(master_lr, master_lr_t))
 
     def get_updates(self, loss, params):
         grads = [a for a in self.get_gradients(loss, params)]
         self._updates = [K.update_add(self._iterations, 1)]
-        self._meta_optimize(self._updates,grads,self._beta_3,self._beta_1,params,self._lr,self._lr2,self._lr3)
+        lrs = [K.variable(K.constant(self._lr,shape=K.int_shape(p)[:-1], dtype=K.dtype(p))) for p in params]
+        moments, derivs = self._derivatives_normalizer(grads,self._beta_3)
+        for lr,deriv,moment,param,deriv2 in zip(lrs,derivs,moments,params,grads):
+            param_t = param - K.expand_dims(lr,len(K.int_shape(param)) - 1) * deriv
+            self._updates.append(K.update(param, param_t))
+            lr_deriv = math_ops.reduce_sum(moment * deriv2,len(K.int_shape(param)) - 1)
+            master_lr = K.variable(self._lr2)
+            m2,d2 = self._derivatives_normalizer([lr_deriv],self._beta_2)
+            lr_t = lr + master_lr * lr * d2[0]
+            self._updates.append(K.update(lr, lr_t))
+            master_lr_deriv2 = math_ops.reduce_sum(m2[0] * lr_deriv)
+            m3,d3 = self._derivatives_normalizer([master_lr_deriv2],0.)
+            master_lr_t = master_lr + self._lr3 * master_lr * d3[0]
+            self._updates.append(K.update(master_lr, master_lr_t))
         return self._updates
 
     def get_config(self):
