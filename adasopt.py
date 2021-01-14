@@ -42,8 +42,8 @@ class AdasOptimizer(Optimizer):
         Tested under tensorflow versions 1.5.4 and 2.3.1.
 
     Arguments:
-        lr: float > 0. Initial weights learning rate per feature/input (e.g. dense layer with N inputs and M outputs, will have N learning rates, 1 per input).
-        lr2: float >= 0.  lr's Initial learning rate. (just ~1-2 per layer)
+        lr: float > 0. Initial learning rate that is per feature/input (e.g. dense layer with N inputs and M outputs, will have N learning rates).
+        lr2: float >= 0.  lr's Initial learning rate. (just ~1-2 per layer, additonal one because of bias)
         lr3: float >= 0. lr2's fixed learning rate. (global)
         beta_1: 0 < float < 1. Preferably close to 1. Second moments decay factor to update lr and lr2 weights.
         beta_2: 0 < float < 1. Preferably close to 1. 1/(1 - beta_2) steps back in time that `lr`s will be optimized for, larger dataset might require more nines.
