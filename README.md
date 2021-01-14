@@ -60,4 +60,4 @@ If you are having hard time understanding with the above words, then try reading
 ## Run
 
 1. For tensorflow 1.x or 2.x run`./adam.py` or `./adas.py`.
-2. There is also a C++ version of Adas in directory named `adasopt-cpp`.
+2. There is also a C++ version of Adas in `./adasopt-cpp/`.
