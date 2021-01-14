@@ -33,7 +33,10 @@ import tensorflow as tf
 
 class AdasOptimizer(Optimizer):
     """Adas optimizer.
-    # Arguments
+    For the mathematical part see https://github.com/YanaiEliyahu/AdasOptimizer, the `Theory` section contains the major innovation, and then `How ADAS works` contains more low level details that are still somewhat related to the theory.
+    This optimizer was tested under tensorflow versions 1.5.4 and 2.3.1, so I assume it's compatible with both 1.x and 2.x versions of tensorflow.
+
+    Arguments:
         lr: float > 0. Initial weights learning rate per feature/input (e.g. dense layer with N inputs and M outputs, will have N learning rates, 1 per input).
         lr2: float >= 0.  lr's Initial learning rate. (just ~1-2 per layer)
         lr3: float >= 0. lr2's fixed learning rate. (global)
