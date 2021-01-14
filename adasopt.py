@@ -33,11 +33,14 @@ class AdasOptimizer(Optimizer):
         lr2: float >= 0.  lr's Initial learning rate. (just ~1-2 per layer)
         lr3: float >= 0. lr2's fixed learning rate. (global)
         beta_1: 0 < float < 1. Preferably close to 1. Second moments decay factor to update lr and lr2 weights.
-        beta_2: 0 < float < 1. Preferably close to 1. 1/(1 - beta_2) steps back in time that `lr`s will be optimized for.
+        beta_2: 0 < float < 1. Preferably close to 1. 1/(1 - beta_2) steps back in time that `lr`s will be optimized for, larger dataset might require more nines.
         beta_3: 0 < float < 1. Preferably close to 1. Same as beta_2, but for `lr2`s.
         epsilon: float >= 0. Fuzz factor. If `None`, defaults to `K.epsilon()`.
     """
-    def __init__(self, lr=0.001,lr2=.005,lr3=.0002, beta_1=0.999, beta_2=0.9999, beta_3 = 0.99999, epsilon=None, **kwargs):
+    def __init__(self,
+            lr = 0.001, lr2 = .005, lr3 = .0005,
+            beta_1 = 0.999, beta_2 = 0.999, beta_3 = 0.9999,
+            epsilon = None, **kwargs):
         super(AdasOptimizer, self).__init__('Adas',**kwargs)
         self._iterations = K.variable(0, dtype='int64', name='iterations')
         self._lr = lr
