@@ -32,12 +32,14 @@ from tensorflow.python.training import moving_averages
 import tensorflow as tf
 
 class AdasOptimizer(Optimizer):
-    """Adas optimizer.
-    For the mathematical part see https://github.com/YanaiEliyahu/AdasOptimizer,
-    the `Theory` section contains the major innovation,
-    and then `How ADAS works` contains more low level details that are still somewhat related to the theory.
+    """
+    Introduction:
+        For the mathematical part see https://github.com/YanaiEliyahu/AdasOptimizer,
+        the `Theory` section contains the major innovation,
+        and then `How ADAS works` contains more low level details that are still somewhat related to the theory.
 
-    Compatability: Tested under tensorflow versions 1.5.4 and 2.3.1.
+    Compatibility:
+        Tested under tensorflow versions 1.5.4 and 2.3.1.
 
     Arguments:
         lr: float > 0. Initial weights learning rate per feature/input (e.g. dense layer with N inputs and M outputs, will have N learning rates, 1 per input).
@@ -53,6 +55,7 @@ class AdasOptimizer(Optimizer):
             beta_1 = 0.999, beta_2 = 0.999, beta_3 = 0.9999,
             epsilon = None, **kwargs):
         super(AdasOptimizer, self).__init__('Adas',**kwargs)
+        # TODO: use self._set_hyper and self._get_hyper
         self._lr = lr
         self._lr2 = lr2
         self._lr3 = lr3
@@ -91,6 +94,7 @@ class AdasOptimizer(Optimizer):
         self._updates.append(result)
         return result
 
+    # TODO: fix variables are convoluted in _derivatives_normalizer and _get_updates_universal_impl
     def _derivatives_normalizer(self,derivative,beta):
         if self._tf1:
             self._iterations = self._make_variable()
