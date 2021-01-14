@@ -94,7 +94,7 @@ class AdasOptimizer(Optimizer):
         self._updates.append(result)
         return result
 
-    # TODO: fix variables, their names are convoluted in _derivatives_normalizer and _get_updates_universal_impl
+    # TODO: fix variables' names being too convoluted in _derivatives_normalizer and _get_updates_universal_impl
     def _derivatives_normalizer(self,derivative,beta):
         if self._tf1:
             self._iterations = self._make_variable()
