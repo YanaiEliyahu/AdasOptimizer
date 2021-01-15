@@ -26,7 +26,7 @@ Increasing ADAM's step size improved the performance in the short-term, but made
 
 ## Validation/Generalization Performance
 
-![ADAS vs ADAM](/adam_vs_adas_cifar100_mobilenetv2.png)
+![ADAS vs ADAM](/adam_vs_adas_cifar100_mobilenetv2-2.png)
 
 Same as training performance, but the graph means performance on the validation set and cifar-100 with MobileNetV2 with dropout 0.15 on the top layer.
 The average accuracy of the last 50 epochs here is 26.4% and 37.4% for Adam and Adas respectively, and variances are 0.00082 and 8.88E-6.
