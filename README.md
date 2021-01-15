@@ -24,6 +24,17 @@ To see how ADAM was tested see/run the python script `./adam.py`, it uses tensor
 ADAS was compared against other optimizers too (AdaGrad, AdaDelta, RMSprop, Adamax, Nadam) in tensorflow, and none of them showed better results than ADAM, so their performance was left out of this graph.
 Increasing ADAM's step size improved the performance in the short-term, but made it worse in the long-term, and vice versa for decreasing it's step size.
 
+## Validation/Generalization Performance
+
+![ADAS vs ADAM](/adam_vs_adas_cifar100_mobilenetv2.png)
+
+Same as training performance, but the graph means performance on the validation set and cifar-100 with MobileNetV2 with dropout 0.15 on the top layer.
+The average accuracy of the last 50 epochs here is 26.4% and 37.4% for Adam and Adas respectively, and variances are 0.00082 and 8.88E-6.
+What can be concluded from here:
+  1. At epoch 10 Adas was already over 27% so it can be said that Adas is ~9x times faster than Adam in this case
+  2. generalized 15% better (`(37.4-26.4)/(100-26.4) = 15`).
+  3. 90x times more stable. (looking at the variances)
+
 ## Theory
 
 This section explains how ADAS optimizes step size.

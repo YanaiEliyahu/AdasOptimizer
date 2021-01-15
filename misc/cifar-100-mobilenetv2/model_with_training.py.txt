@@ -1,0 +1,45 @@
+#! /usr/bin/python3
+
+from __future__ import absolute_import, division, print_function, unicode_literals
+import tensorflow as tf
+from tensorflow.keras.applications import MobileNetV2
+import tensorflow.keras.layers as layers
+from tensorflow.keras.losses import sparse_categorical_crossentropy
+from adasopt import AdasOptimizer
+from tensorflow.keras.layers.experimental import preprocessing
+from tensorflow.keras.models import Sequential
+
+
+from tensorflow.keras.datasets import cifar100
+
+inputs = layers.Input(shape=(32, 32, 3))
+
+model = MobileNetV2(
+    input_shape=(32,32,3), alpha=1.0, input_tensor = inputs, weights=None, pooling='avg', include_top = False
+)
+
+x = model.output
+
+top_dropout_rate = 0.15
+outputs = layers.Dense(512, activation="relu")(x)
+x = layers.Dropout(top_dropout_rate)(x)
+outputs = layers.Dense(100, activation="softmax", name="pred")(x)
+
+
+
+model = tf.keras.Model(inputs, outputs)
+
+(input_train, target_train), (input_test, target_test) = cifar100.load_data()
+input_train = input_train.astype('float32')
+input_test = input_test.astype('float32')
+input_train = input_train / 255
+input_test = input_test / 255
+
+loss_function = sparse_categorical_crossentropy
+is_adas = False
+if is_adas:
+    model.compile(optimizer=AdasOptimizer(), loss=loss_function, metrics=['accuracy']) # left
+else:
+    model.compile(optimizer='adam', loss=loss_function, metrics=['accuracy']) # right
+
+model.fit(input_train, target_train, epochs=100, validation_data=(input_test, target_test))
