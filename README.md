@@ -15,6 +15,10 @@ For PyTorch's standalone optimizer file see [adasopt_pytorch.py](adasopt_pytorch
 
 There is also a C++ version of Adas in [adasopt-cpp](adasopt-cpp).
 
+Guidelines on how to use this optimizer:
+1. Use normalization; the purpose is to remove the bias/mean from the values.
+2. It's known that the optimizer doesn't work well with 2 loss functions that minimizing one introduces error in the other, the optimizer would raise the step size and never converge.
+
 ## Training Performance
 
 ![ADAS vs ADAM](/adas_vs_adam.png)
