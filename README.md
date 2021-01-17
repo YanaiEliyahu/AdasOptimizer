@@ -11,6 +11,8 @@ Tensorflow 1.x and 2.x:
 1. For standalone optimizer file see [adasopt.py](adasopt.py).
 2. For quick benchmark run [adas.py](adas.py) and [adam.py](adam.py).
 
+For PyTorch's standalone optimizer file see [adasopt_pytorch.py](adasopt_pytorch.py).
+
 There is also a C++ version of Adas in [adasopt-cpp](adasopt-cpp).
 
 ## Training Performance
