@@ -80,7 +80,7 @@ class Adas(Optimizer):
         self._varn += 1
         name = 'unnamed_variable' + str(self._varn)
         if self._is_create_slots:
-            self.state[self._curr_var][name] = torch.full(size=shape,fill_value=value,dtype=dtype)
+            self.state[self._curr_var][name] = torch.full(size=shape,fill_value=value,dtype=dtype,device=self._curr_var.device)
         return self.state[self._curr_var][name]
 
     @torch.no_grad()
