@@ -17,7 +17,7 @@ Standalone optimizer files:
 Guidelines on how to use this optimizer:
 1. Use normalization; the purpose is to remove the bias/mean from the values which causes instability and slow convergence issues.
 2. The optimizer doesn't work well with 2 loss functions that minimizing one introduces error in the other, it's better to use the optimizer on just one of the functions.
-3. A few hundreds of optimization steps isn't Adas' main use-case. (The full benefit from Adas is shown after a few epochs)
+3. A few hundreds of optimization steps isn't Adas' main use-case, the full benefit from Adas is shown after many epochs.
 
 ## Training Performance
 
