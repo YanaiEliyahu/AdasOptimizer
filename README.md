@@ -1,6 +1,8 @@
 # AdasOptimizer
 ADAS is short for Adaptive Step Size, it's an optimizer that unlike other optimizers that just normalize the derivatives, it fine-tunes the step size, truly making step size scheduling obsolete.
 
+Not to be confused with https://openreview.net/forum?id=qUzxZj13RWY https://github.com/mahdihosseini/AdaS etc.
+
 ## How to use
 
 ```shell
@@ -17,7 +19,8 @@ There is also a C++ version of Adas in [adasopt-cpp](adasopt-cpp).
 
 Guidelines on how to use this optimizer:
 1. Use normalization; the purpose is to remove the bias/mean from the values.
-2. It's known that the optimizer doesn't work well with 2 loss functions that minimizing one introduces error in the other, the optimizer would raise the step size and never converge.
+2. It's known that the optimizer doesn't work well with 2 loss functions that minimizing one introduces error in the other, the optimizer would raise the step size and never converge, it's better to use the optimizer on just one of the functions.
+3. The step sizes' adjustments during a few hundreds optimizations are barely anything to benefit from. (The benefit from Adas is shown after a few epochs at least)
 
 ## Training Performance
 
