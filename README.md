@@ -9,18 +9,15 @@ Not to be confused with https://openreview.net/forum?id=qUzxZj13RWY https://gith
 git clone https://github.com/YanaiEliyahu/AdasOptimizer.git && cd AdasOptimizer
 ```
 
-Tensorflow 1.x and 2.x:
-1. For standalone optimizer file see [adasopt.py](adasopt.py).
-2. For quick benchmark run [adas.py](adas.py) and [adam.py](adam.py).
-
-For PyTorch standalone optimizer file see [adasopt_pytorch.py](adasopt_pytorch.py).
-
-There is also a C++ version of Adas in [adasopt-cpp](adasopt-cpp).
+Standalone optimizer files:
+1. Tensorflow [adasopt.py](adasopt.py)
+2. PyTorch [adasopt_pytorch.py](adasopt_pytorch.py)
+3. C++ not very standalone, but see `struct layer` in [adasopt-cpp/main.cpp](adasopt-cpp/main.cpp).
 
 Guidelines on how to use this optimizer:
-1. Use normalization; the purpose is to remove the bias/mean from the values.
-2. It's known that the optimizer doesn't work well with 2 loss functions that minimizing one introduces error in the other, the optimizer would raise the step size and never converge, it's better to use the optimizer on just one of the functions.
-3. The step sizes' adjustments during a few hundreds optimization steps are barely anything to benefit from, it's not Adas' main use-case. (The benefit from Adas is shown after a few epochs at least)
+1. Use normalization; the purpose is to remove the bias/mean from the values which causes instability and slow converagance issues.
+2. The optimizer doesn't work well with 2 loss functions that minimizing one introduces error in the other, it's better to use the optimizer on just one of the functions.
+3. A few hundreds of optimization steps isn't Adas' main use-case. (The full benefit from Adas is shown after a few epochs)
 
 ## Training Performance
 
