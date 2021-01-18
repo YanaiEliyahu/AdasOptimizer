@@ -18,7 +18,7 @@ Guidelines on how to use this optimizer:
 1. Use normalization; the purpose is to remove the bias/mean from the values which causes instability and slow convergence issues.
 2. The optimizer doesn't work well with 2 loss functions that minimizing one introduces error in the other, it's better to use the optimizer on just one of the functions.
 3. A few hundreds of optimization steps isn't Adas' main use-case, the full benefit from Adas is shown after many epochs.
-4. `1 / (1 - beta_3)` should have some proportion (not necessarily 1:1) to how many optimization steps are planned to be performed, too high and it would converge slowly, too low and it wouldn't converge (see [short-horizon bias](https://arxiv.org/abs/1803.02021)).
+4. `1 / (1 - beta_3)` should have some proportion (not necessarily 1:1) to how many optimization steps are planned to be performed, too high and it would converge slowly, too low and it wouldn't converge.
 
 ## Training Performance
 
