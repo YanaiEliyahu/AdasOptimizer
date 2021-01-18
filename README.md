@@ -1,19 +1,23 @@
 # AdasOptimizer
 ADAS is short for Adaptive Step Size, it's an optimizer that unlike other optimizers that just normalize the derivatives, it fine-tunes the step size, truly making step size scheduling obsolete.
 
+Not to be confused with https://openreview.net/forum?id=qUzxZj13RWY https://github.com/mahdihosseini/AdaS etc.
+
 ## How to use
 
 ```shell
 git clone https://github.com/YanaiEliyahu/AdasOptimizer.git && cd AdasOptimizer
 ```
 
-Tensorflow 1.x and 2.x:
-1. For standalone optimizer file see [adasopt.py](adasopt.py).
-2. For quick benchmark run [adas.py](adas.py) and [adam.py](adam.py).
+Standalone optimizer files:
+1. Tensorflow [adasopt.py](adasopt.py)
+2. PyTorch [adasopt_pytorch.py](adasopt_pytorch.py)
+3. C++ not very standalone, but see `struct layer` in [adasopt-cpp/main.cpp](adasopt-cpp/main.cpp).
 
-For PyTorch's standalone optimizer file see [adasopt_pytorch.py](adasopt_pytorch.py).
-
-There is also a C++ version of Adas in [adasopt-cpp](adasopt-cpp).
+Guidelines on how to use this optimizer:
+1. Use normalization; the purpose is to remove the bias/mean from the values which causes instability and slow convergence issues.
+2. The optimizer doesn't work well with 2 loss functions that minimizing one introduces error in the other, it's better to use the optimizer on just one of the functions.
+3. A few hundreds of optimization steps isn't Adas' main use-case, the full benefit from Adas is shown after many epochs.
 
 ## Training Performance
 
