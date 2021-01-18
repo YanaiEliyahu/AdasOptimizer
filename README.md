@@ -14,11 +14,11 @@ Standalone optimizer files:
 2. PyTorch [adasopt_pytorch.py](adasopt_pytorch.py)
 3. C++ not very standalone, but see `struct layer` in [adasopt-cpp/main.cpp](adasopt-cpp/main.cpp).
 
-Guidelines on how to use this optimizer:
-1. Use normalization; the purpose is to remove the bias/mean from the values which causes instability and slow convergence issues.
-2. The optimizer doesn't work well with 2 loss functions that minimizing one introduces error in the other, it's better to use the optimizer on just one of the functions.
-3. A few hundreds of optimization steps isn't Adas' main use-case, the full benefit from Adas is shown after many epochs.
-4. `1 / (1 - beta_3)` should have some proportion (not necessarily 1:1) to how many optimization steps are planned to be performed, too high and it would converge slowly, too low and it wouldn't converge.
+Tips for getting the best results, or just when something isn't right:
+1. Remove the bias/mean from values. (e.g. use normalization)
+2. Make `1 / (1 - beta_3)` so it has some proportion to how many optimization steps are planned to be performed.
+3. Use on tasks that other optimizers don't converge in 1,000+ optimization-steps.
+4. Use the optimizer on just one of the loss functions if there are 2+ loss functions that minimizing one introduces error in the other.
 
 ## Training Performance
 
