@@ -16,9 +16,9 @@ Standalone optimizer files:
 
 Tips for getting the best results, or when something isn't right:
 1. Remove the bias/mean from values. (e.g. use normalization)
-2. Make `1 / (1 - beta_3)` so it has some proportion to how many optimization steps are planned to be performed.
+2. Make `1 / (1 - beta_3)` so it has some proportion to number of optimization steps.
 3. Use on tasks that other optimizers don't converge in 1,000+ optimization-steps.
-4. Use the optimizer on just one of the loss functions if there are 2+ loss functions that minimizing one introduces error in the other.
+4. Use the optimizer on one loss function if there are 2+ loss functions that minimizing one introduces error in the other.
 
 ## Training Performance
 
