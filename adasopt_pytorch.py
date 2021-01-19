@@ -34,9 +34,6 @@ class Adas(Optimizer):
         the `Theory` section contains the major innovation,
         and then `How ADAS works` contains more low level details that are still somewhat related to the theory.
 
-    Compatibility:
-        Tested under tensorflow versions 1.5.4 and 2.3.1.
-
     Arguments:
         params (iterable): iterable of parameters to optimize or dicts defining parameter groups
         lr: float > 0. Initial learning rate that is per feature/input (e.g. dense layer with N inputs and M outputs, will have N learning rates).
