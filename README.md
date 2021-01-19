@@ -22,7 +22,7 @@ Tips for getting the best results, or for when something isn't right:
 
 ## Training Performance
 
-![ADAS vs ADAM](/adas_vs_adam.png)
+![ADAS vs ADAM](/misc/mnist-densenet/adas_vs_adam.png)
 
 This is a graph of ADAS (blue) and ADAM (orange)'s inaccuracy percentages in log scale (y-axis) over epochs (x-axis) on MNIST's training dataset using shallow network of 256 hidden nodes.
 While ADAM slows down significantly overtime, ADAS converages to 0% inaccuracy (AKA 100% accuracy) in 11 iterations.
@@ -33,7 +33,7 @@ Increasing ADAM's step size improved the performance in the short-term, but made
 
 ## Test/Generalization Performance
 
-![ADAS vs ADAM](/adam_vs_adas_cifar100_mobilenetv2-3.png)
+![ADAS vs ADAM](/misc/cifar-100-mobilenetv2/adam_vs_adas_cifar100_mobilenetv2-3.png)
 
 Same as training performance, but the graph means performance on the test set and cifar-100 with vanilla MobileNetV2 with dropout 0.15 on the top layer. The average accuracy of the last 50 epochs here is 26.4% and 37.4% for Adam and Adas respectively, and variances are 0.00082 and 8.88E-6. Conclusions:
 1. In the epoch 10th, Adas was already over 27% so it can be said that Adas is ~9x times faster than Adam in this case.
