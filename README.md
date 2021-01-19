@@ -44,7 +44,7 @@ The problem of finding the optimal step size formulates itself into optimizing `
 Which is translated into this formula: `step-size(n+1) = step-size(n) + f'(x) * f'(x + f'(x) * step_size(n))`.
 
 Computing the above formula requires evaluation of the gradient on the entire dataset twice for each update of `step-size`, which is computationally expensive;
-to overcome this problem, replace `f'(x)` with a exponential moving average of `x`'s derivative in SGD-context, and `f'(x + f'(x) * step_size(n))` with `x`'s derivative, and then update the `step-size` according to the formula.
+to overcome this problem, replace `f'(x)` with a exponential moving average of `x`'s derivative, and `f'(x + f'(x) * step_size(n))` with `x`'s derivative, and then update the `step-size` according to the formula in SGD-context.
 
 ## How ADAS works
 
