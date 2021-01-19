@@ -22,7 +22,7 @@ Tips for getting the best results, or for when something isn't right:
 
 ## Training Performance
 
-![ADAS vs ADAM](/misc/mnist-densenet/adas_vs_adam.png)
+![ADAS vs ADAM](/misc/mnist-dense-net/adas_vs_adam.png)
 
 This is a graph of ADAS (blue) and ADAM (orange)'s inaccuracy percentages in log scale (y-axis) over epochs (x-axis) on MNIST's training dataset using shallow network of 256 hidden nodes.
 While ADAM slows down significantly overtime, ADAS converages to 0% inaccuracy (AKA 100% accuracy) in 11 iterations.
