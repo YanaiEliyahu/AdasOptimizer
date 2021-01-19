@@ -43,10 +43,10 @@ This section explains how ADAS optimizes step size.
 The problem of finding the optimal step size formulates itself into optimizing `f(x + f'(x) * step-size)` by `step-size`.
 Which is translated into this formula that updates the `step-size` on the fly: `step-size(n+1) = step-size(n) + f'(x) * f'(x + f'(x) * step_size(n))`.
 In english it means optimize step size so the loss decreases the most with each weights update.
-The final formula makes sense, because whenever `x` is updated in the same direction, the `step-size` should increase because we didn't make a large enough step, and vice versa for opposite.
+The final formula makes sense, because whenever `x` is updated in the same direction, the `step-size` should increase because we didn't make a large enough step, and vice versa for opposite direction.
 
-You may notice that there's a critical problem in computing the above formula, it requires evaluation of the gradient on the entire dataset twice for each update of `step-size`, which is quite expensive.
-To overcome the above problem, compute a running average of `x`'s derivative in SGD-context, this represents the `f'(x)` in the formula, and for each SGD update to `x`,
+There is a critical problem in computing the above formula, it requires evaluation of the gradient on the entire dataset twice for each update of `step-size`, which is computationally expensive.
+To overcome the above problem, compute a exponential moving average of `x`'s derivative in SGD-context, this represents the `f'(x)` in the formula, and for each SGD update to `x`,
 its derivative represents the `f'(x + f'(x) * step_size(n))`, and then update the `step-size` according to the formula.
 
 ## How ADAS works
