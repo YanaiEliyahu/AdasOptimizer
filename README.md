@@ -27,10 +27,6 @@ Tips for getting the best results, or for when something isn't right:
 This is a graph of ADAS (blue) and ADAM (orange)'s inaccuracy percentages in log scale (y-axis) over epochs (x-axis) on MNIST's training dataset using shallow network of 256 hidden nodes.
 While ADAM slows down significantly overtime, ADAS converages to 0% inaccuracy (AKA 100% accuracy) in 11 iterations.
 
-To see how ADAM was tested see/run the python script `./adam.py`, it uses tensorflow.
-ADAS was compared against other optimizers too (AdaGrad, AdaDelta, RMSprop, Adamax, Nadam) in tensorflow, and none of them showed better results than ADAM, so their performance was left out of this graph.
-Increasing ADAM's step size improved the performance in the short-term, but made it worse in the long-term, and vice versa for decreasing it's step size.
-
 ## Test/Generalization Performance
 
 ![ADAS vs ADAM](/misc/cifar-100-mobilenetv2/adam_vs_adas_cifar100_mobilenetv2-3.png)
